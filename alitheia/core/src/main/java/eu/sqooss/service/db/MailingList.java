@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -84,11 +85,11 @@ public class MailingList extends DAObject {
 	@JoinColumn(name="PROJECT_ID")
     private StoredProject storedProject;
 
-    /**
-     * The set of available messages in this list
-     */
-	@OneToMany(mappedBy="list", orphanRemoval=true, cascade = CascadeType.ALL)
-    private Set<MailMessage> messages;
+//    /**
+//     * The set of available messages in this list
+//     */
+//	@OneToMany(mappedBy="list", orphanRemoval=true, cascade = CascadeType.ALL)
+//    private Set<MailMessage> messages;
 
     /**
      * The set of threaded discussions in this list
@@ -123,12 +124,16 @@ public class MailingList extends DAObject {
     }
 
     public Set<MailMessage> getMessages() {
-        return messages;
+    	Set<MailMessage> listMessages = new TreeSet<MailMessage>();
+        for (MailingListThread thread: this.getThreads()){
+        	listMessages.addAll(thread.getMessages());
+        }
+    	return listMessages;
     }
 
-    public void setMessages(Set<MailMessage> messages) {
-        this.messages = messages;
-    }
+//    public void setMessages(Set<MailMessage> messages) {
+//        this.messages = messages;
+//    }
     
     public Set<MailingListThread> getThreads() {
         return threads;

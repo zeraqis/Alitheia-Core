@@ -75,12 +75,12 @@ public class MailMessage extends DAObject {
 	@JoinColumn(name="SENDER_ID")
     private Developer sender;
 
-    /**
-     * The list to which the email was originally sent
-     */
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="MLIST_ID")
-    private MailingList list;
+//    /**
+//     * The list to which the email was originally sent
+//     */
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="MLIST_ID")
+//    private MailingList list;
 
     /**
      * Unique ID for this message in the database
@@ -172,11 +172,13 @@ public class MailMessage extends DAObject {
     }
 
     public MailingList getList() {
-        return list;
+    	return this.getThread().getList();
+        //return list;
     }
 
     public void setList( MailingList value ) {
-        list = value;
+    	this.getThread().setList(value);
+        //list = value;
     }
 
     public String getMessageId() {
