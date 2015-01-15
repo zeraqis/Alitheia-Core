@@ -46,6 +46,7 @@ import eu.sqooss.service.db.BugSeverity;
 import eu.sqooss.service.db.BugStatus;
 import eu.sqooss.service.db.DBService;
 import eu.sqooss.service.db.Developer;
+import eu.sqooss.service.db.DeveloperDB;
 import eu.sqooss.service.db.StoredProject;
 import eu.sqooss.service.db.BugPriority.Priority;
 import eu.sqooss.service.db.BugResolution.Resolution;
@@ -188,9 +189,9 @@ public class BugzillaXMLJob extends Job {
     private Developer getDeveloper(String name) {
         Developer d = null;
         if (name.contains("@")) {
-            d = Developer.getDeveloperByEmail(name, project);
+            d = DeveloperDB.getDeveloperByEmail(name, project);
         } else {
-            d = Developer.getDeveloperByUsername(name, project);
+            d = DeveloperDB.getDeveloperByUsername(name, project);
         }
         return d;
     }

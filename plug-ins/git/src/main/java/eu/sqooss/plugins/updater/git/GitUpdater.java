@@ -45,6 +45,7 @@ import eu.sqooss.plugins.tds.git.GitAccessor;
 import eu.sqooss.service.db.Branch;
 import eu.sqooss.service.db.DBService;
 import eu.sqooss.service.db.Developer;
+import eu.sqooss.service.db.DeveloperDB;
 import eu.sqooss.service.db.Directory;
 import eu.sqooss.service.db.ProjectFile;
 import eu.sqooss.service.db.ProjectFileState;
@@ -324,7 +325,7 @@ public class GitUpdater implements MetadataUpdater {
         Developer d = null;
         
         if (email != null) {
-            d = Developer.getDeveloperByEmail(email, sp, true);
+            d = DeveloperDB.getDeveloperByEmail(email, sp, true);
             
             if (name != null) {
                 if (name.contains(" ")) {
@@ -335,9 +336,9 @@ public class GitUpdater implements MetadataUpdater {
             }
         } else {
             if (name.contains(" ")) {
-                d = Developer.getDeveloperByName(name, sp, true); 
+                d = DeveloperDB.getDeveloperByName(name, sp, true); 
             } else {
-                d = Developer.getDeveloperByUsername(name, sp, true);
+                d = DeveloperDB.getDeveloperByUsername(name, sp, true);
             }
         }
         return d;

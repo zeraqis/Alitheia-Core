@@ -43,6 +43,7 @@ import javax.mail.internet.MimeMessage;
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.service.db.DBService;
 import eu.sqooss.service.db.Developer;
+import eu.sqooss.service.db.DeveloperDB;
 import eu.sqooss.service.db.MailMessage;
 import eu.sqooss.service.db.MailingList;
 import eu.sqooss.service.db.StoredProject;
@@ -127,7 +128,7 @@ public class MailMessageJob extends Job{
 
         // Try to find developer from name first
         if (devName != null) {
-            sender = Developer.getDeveloperByName(devName,
+            sender = DeveloperDB.getDeveloperByName(devName,
                     ml.getStoredProject(), false);
         }
 
@@ -140,7 +141,7 @@ public class MailMessageJob extends Job{
                 return;
             }
 
-            sender = Developer.getDeveloperByEmail(senderEmail,
+            sender = DeveloperDB.getDeveloperByEmail(senderEmail,
                     ml.getStoredProject(), true);
 
             // Found dev by email, but not by name

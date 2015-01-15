@@ -31,6 +31,7 @@ import eu.sqooss.plugins.updater.git.GitUpdater;
 import eu.sqooss.service.db.DBService;
 import eu.sqooss.service.db.Developer;
 import eu.sqooss.service.db.DeveloperAlias;
+import eu.sqooss.service.db.DeveloperDB;
 import eu.sqooss.service.db.ProjectFile;
 import eu.sqooss.service.db.ProjectFileState;
 import eu.sqooss.service.db.ProjectVersion;
@@ -126,7 +127,7 @@ public class TestGitUpdater extends TestGitSetup {
         assertTrue(d.getAliases().contains(new DeveloperAlias("pm@smurfvillage.com", d)));
 
         //A bit of Developer DAO testing
-        assertNotNull(Developer.getDeveloperByEmail("pm@smurfvillage.com", sp));
+        assertNotNull(DeveloperDB.getDeveloperByEmail("pm@smurfvillage.com", sp));
         d.addAlias("pm@smurfvillage.com");
         assertEquals(1, d.getAliases().size());
         

@@ -45,6 +45,7 @@ import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.service.db.Branch;
 import eu.sqooss.service.db.DBService;
 import eu.sqooss.service.db.Developer;
+import eu.sqooss.service.db.DeveloperDB;
 import eu.sqooss.service.db.Directory;
 import eu.sqooss.service.db.ProjectFile;
 import eu.sqooss.service.db.ProjectFileState;
@@ -201,7 +202,7 @@ public class SVNUpdaterImpl implements MetadataUpdater {
             } else {
                 //Add revision 0 and / (root) file entry
                 ProjectVersion zero = new ProjectVersion(project);
-                zero.setCommitter(Developer.getDeveloperByUsername("sqo-oss", project));
+                zero.setCommitter(DeveloperDB.getDeveloperByUsername("sqo-oss", project));
                 zero.setTimestamp(scm.getFirstRevision().getDate().getTime());
                 zero.setCommitMsg("Artificial revision to include / directory");
                 zero.setRevisionId("0");
@@ -376,7 +377,7 @@ public class SVNUpdaterImpl implements MetadataUpdater {
         curVersion.setRevisionId(entry.getUniqueId());
         curVersion.setTimestamp(entry.getDate().getTime());
 
-        Developer d  = Developer.getDeveloperByUsername(entry.getAuthor(), project);
+        Developer d  = DeveloperDB.getDeveloperByUsername(entry.getAuthor(), project);
        
         curVersion.setCommitter(d);
 
