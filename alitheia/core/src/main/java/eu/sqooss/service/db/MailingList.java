@@ -156,11 +156,18 @@ public class MailingList extends DAObject {
         String paramDate = "paramDate";
         String paramMailingList = "paramML";
         
-        String query =  " select mm " +
-            " from MailMessage mm, MailingList ml " +
-            " where mm.list = ml " +
-            " and mm.list = :" + paramMailingList +
-            " and mm.sendDate > :" + paramDate;
+        String query = "select mm" +
+        		" from MailingList ml, MailingListThread mlt, MailMessage mm " +
+        		" where ml = mlt.list" +
+        		" and mlt = mm.thread" +
+        		" and mlt.list = :" + paramMailingList +
+        		" and mm.sendDate > :" + paramDate;
+//        
+//        String query =  " select mm " +
+//            " from MailMessage mm, MailingList ml " +
+//            " where mm.list = ml " +
+//            " and mm.list = :" + paramMailingList +
+//            " and mm.sendDate > :" + paramDate;
         
         Map<String,Object> params = new HashMap<String, Object>();
         params.put(paramDate, d);
@@ -182,12 +189,19 @@ public class MailingList extends DAObject {
 
         String paramMailingList = "paramML";
         
-        String query =  " select mm " +
-            " from MailMessage mm, MailingList ml " +
-            " where mm.list = ml " +
-            " and mm.list = :" + paramMailingList +
-            " order by mm.sendDate desc";
+        String query = "select mm" +
+        		" from MailingList ml, MailingListThread mlt, MailMessage mm " +
+        		" where ml = mlt.list" +
+        		" and mlt = mm.thread" +
+        		" and mlt.list = :" + paramMailingList +
+        		" order by mm.sendDate desc";
         
+//        String query =  " select mm " +
+//            " from MailMessage mm, MailingList ml " +
+//            " where mm.list = ml " +
+//            " and mm.list = :" + paramMailingList +
+//            " order by mm.sendDate desc";
+//        
         Map<String,Object> params = new HashMap<String, Object>();
         params.put(paramMailingList, this);
         
@@ -211,7 +225,7 @@ public class MailingList extends DAObject {
         String query =  " select mt " +
             " from MailThread mt, MailingList ml " +
             " where mt.list = ml " +
-            " and mm.list = :" + paramMailingList +
+            " and mt.list = :" + paramMailingList +
             " order by mt.lastUpdated desc";
         
         Map<String,Object> params = new HashMap<String, Object>();
